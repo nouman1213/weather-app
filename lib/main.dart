@@ -2,6 +2,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:weather_app/screens/home_screen.dart';
 import 'package:weather_app/screens/splash.dart';
 
 dynamic components() {
@@ -17,7 +18,7 @@ void main() {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(
     DevicePreview(
-      enabled: false,
+      enabled: true,
       // ignore: prefer_const_literals_to_create_immutables
       tools: [
         ...DevicePreview.defaultTools,
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'poppins',
         ),
         debugShowCheckedModeBanner: false,
-        home: const SplashScreen(),
+        home: const HomeScreen(),
         builder: (_, child) =>
             ScrollConfiguration(behavior: AppBehavior(), child: child!));
   }

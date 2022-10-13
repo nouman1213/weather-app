@@ -5,6 +5,7 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:weather_app/const/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/const/const.dart';
+import 'package:weather_app/const/screen_size.dart';
 import 'package:weather_app/controller/weather_controller.dart';
 import 'package:weather_app/model/hourly_weather_model.dart';
 import 'package:weather_app/model/weather_model.dart';
@@ -14,6 +15,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScreenSize().init(context);
+    print(ScreenSize.screenHeight);
+    print(ScreenSize.screenWidth);
     var controller = Get.put(WeatherController());
     var date = DateFormat('EEEE, MMM d, yyy').format(DateTime.now());
 
@@ -40,8 +44,8 @@ class HomeScreen extends StatelessWidget {
                                 padding: const EdgeInsets.all(10),
                                 child: Container(
                                   padding: const EdgeInsets.all(10),
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.54,
+                                  // height:
+                                  //     MediaQuery.of(context).size.height * 0.54,
                                   width: double.infinity,
                                   decoration: const BoxDecoration(
                                       color: textColor,
@@ -59,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                                         children: [
                                           "$date"
                                               .text
-                                              .size(14)
+                                              .size(ScreenSize.screenWidth / 30)
                                               .fontFamily('poppins')
                                               .white
                                               .make(),
@@ -74,9 +78,10 @@ class HomeScreen extends StatelessWidget {
                                       "${data.name}"
                                           .text
                                           .white
-                                          .size(24)
+                                          .size(ScreenSize.screenWidth / 15)
                                           .fontFamily('poppins_bold')
                                           .make(),
+                                      Spacer(),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -84,31 +89,40 @@ class HomeScreen extends StatelessWidget {
                                           Stack(
                                             children: [
                                               Image.asset(
-                                                  height: 80,
+                                                  height: ScreenSize
+                                                      .getScreenHieght(150),
                                                   'assets/images/${data.weather![0].icon}.png'),
                                               Container(
                                                 child: Lottie.asset(
-                                                  width: 60,
-                                                  height: 60,
+                                                  width:
+                                                      ScreenSize.getScreenWidth(
+                                                          60),
+                                                  height: ScreenSize
+                                                      .getScreenHieght(120),
                                                   'assets/icons/logo.json',
                                                 ),
                                               ),
                                             ],
                                           ),
-                                          20.widthBox,
+                                          ScreenSize.getScreenWidth(30)
+                                              .widthBox,
                                           RichText(
                                               text: TextSpan(children: [
                                             TextSpan(
                                                 text:
                                                     '${data.main!.temp}${degree}',
-                                                style: const TextStyle(
-                                                    fontSize: 34,
+                                                style: TextStyle(
+                                                    fontSize:
+                                                        ScreenSize.screenWidth /
+                                                            13,
                                                     fontFamily:
                                                         'poppins_bold')),
                                             TextSpan(
                                                 text: data.weather![0].main,
-                                                style: const TextStyle(
-                                                    fontSize: 14,
+                                                style: TextStyle(
+                                                    fontSize:
+                                                        ScreenSize.screenWidth /
+                                                            20,
                                                     fontFamily: 'poppins')),
                                           ]))
                                         ],
@@ -122,6 +136,9 @@ class HomeScreen extends StatelessWidget {
                                             label:
                                                 "${data.main!.tempMax!} $degree"
                                                     .text
+                                                    .size(
+                                                        ScreenSize.screenWidth /
+                                                            20)
                                                     .white
                                                     .make(),
                                             icon: const Icon(
@@ -134,6 +151,9 @@ class HomeScreen extends StatelessWidget {
                                               label:
                                                   "${data.main!.tempMin!} $degree"
                                                       .text
+                                                      .size(ScreenSize
+                                                              .screenWidth /
+                                                          20)
                                                       .white
                                                       .make(),
                                               icon: const Icon(
@@ -142,19 +162,18 @@ class HomeScreen extends StatelessWidget {
                                               )),
                                         ],
                                       ),
-                                      SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.05,
+                                      Spacer(
+                                        flex: 2,
                                       ), // ignore: prefer_const_constructors
                                       const Divider(
                                         thickness: 1,
                                         color: dividerColor,
                                       ),
-                                      SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.005,
+                                      // SizedBox(
+                                      //     height:
+                                      //         ScreenSize.getScreenHieght(10)),
+                                      Spacer(
+                                        flex: 2,
                                       ),
                                       Row(
                                         mainAxisAlignment:
@@ -174,8 +193,12 @@ class HomeScreen extends StatelessWidget {
                                             children: [
                                               Image.asset(
                                                 iconList[index],
-                                                width: 40,
-                                                height: 40,
+                                                width:
+                                                    ScreenSize.getScreenWidth(
+                                                        60),
+                                                height:
+                                                    ScreenSize.getScreenHieght(
+                                                        90),
                                               )
                                                   .box
                                                   .color(Colors.grey
@@ -184,10 +207,12 @@ class HomeScreen extends StatelessWidget {
                                                       const EdgeInsets.all(4))
                                                   .roundedSM
                                                   .make(),
-                                              10.heightBox,
+                                              ScreenSize.getScreenHieght(20)
+                                                  .heightBox,
                                               valueList[index]
                                                   .text
-                                                  .size(12)
+                                                  .size(ScreenSize.screenWidth /
+                                                      24)
                                                   .white
                                                   .make(),
                                             ],
@@ -199,7 +224,7 @@ class HomeScreen extends StatelessWidget {
                                 )),
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * .15,
+                            height: ScreenSize.getScreenHieght(15),
                             child: FutureBuilder(
                               future: controller.HourlyWeatherData,
                               builder: (BuildContext context,
@@ -231,8 +256,9 @@ class HomeScreen extends StatelessWidget {
                                       return Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Container(
-                                          height: 35,
-                                          width: 60,
+                                          height:
+                                              ScreenSize.getScreenHieght(80),
+                                          width: ScreenSize.getScreenWidth(80),
                                           decoration: BoxDecoration(
                                               color: textColor,
                                               borderRadius:
@@ -249,7 +275,8 @@ class HomeScreen extends StatelessWidget {
                                                       .white
                                                       .make(),
                                                   Image.asset(
-                                                      width: 60,
+                                                      width: ScreenSize
+                                                          .getScreenWidth(60),
                                                       'assets/images/${hourlyData.list![index].weather![0].icon}.png'),
                                                   '$time'
                                                       .text
