@@ -1,7 +1,7 @@
 const String degree = "°";
 const String latitude = "31.4492";
 const String longitude = "73.7083";
-const String apiKey = "6c65c274b522ab890b940bc77c5cddcb";
+const String apiKey = "";
 const String baseUrl =
     "https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey";
 const String daysEndpoint =
